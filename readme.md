@@ -1,6 +1,6 @@
 # webp_killer
 
-This is a program created for the sole purpose of converting .webp files into any other (better) image format from the command line. I don't like webp files, and I know that lots of others don't either. Hopefully this program will help you deal with your hatred of this menace.  
+This is a program created for the sole purpose of converting .webp files into any other (better) image format from the command line. I don't like webp files, and I know that lots of others don't either. Hopefully this program will help you deal with your hatred of this menace. Once the webp file is converted, it is then removed from existence.  
 This program was built in Rust as a fun little project- I'm trying to learn it and this felt like a neat thing to do with it.
 
 ## usage
