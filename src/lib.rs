@@ -1,3 +1,5 @@
+extern crate notify;
+use crate::notify::Watcher;
 use std::fs;
 
 pub struct WebpFile { //public struct WebpFile takes two inputs, both Strings.
@@ -21,5 +23,28 @@ impl WebpFile { //functions implemented by WebpFile - these can be used as metho
         img.save(format!("{}.{}",&self.name,&self.output)).expect("Could not save file to new file!"); //saves the webp file as a better format, but also removes any capitalization from the file name if user did not type it exactly as it was originally. if it cant save, send the expect statement (panic) this is most likely to happen due to an invalid file extension, but idk something else could probably happen here as well
         println!("Converted {}.webp to {}.{}!",&self.name,&self.name,&self.output); //lets user know the process happened
         fs::remove_file(format!("{}.webp",&self.name)).unwrap(); //removes the webp file from its terrible existence
+    }
+}
+pub fn watcher() -> notify::Result<()> {
+    let mut watcher = notify::recommended_watcher(webp_killer)?;
+    watcher.watch(std::path::Path::new("."), notify::RecursiveMode::Recursive)?;
+    loop{}
+}
+fn webp_killer(res: notify::Result<notify::Event>) {
+    match res {
+        Ok(event) => {
+            let p = &event.paths[0];
+            if p.extension().unwrap_or_else(|| {
+                std::ffi::OsStr::new("NONE")
+            }) == "webp" && event.kind == notify::EventKind::Create(notify::event::CreateKind::Any) {
+                std::thread::sleep(std::time::Duration::from_secs(1));
+                let evil = WebpFile {
+                    name: p.file_stem().unwrap().to_str().unwrap().to_string(),
+                    output: "png".to_string(),
+                };
+                evil.kill();
+            }
+        },
+        Err(e) => println!("Error: {:?}",e),
     }
 }

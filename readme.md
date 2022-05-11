@@ -5,7 +5,9 @@ This program was built in Rust as a fun little project- I'm trying to learn it a
 
 ## usage
 
-### Cargo
+### To convert
+
+#### Cargo
 
 To run this from cargo, you must have a .webp file in the root of the project. Once this is achieved, run the following in your favorite terminal:
 
@@ -21,7 +23,7 @@ cargo run flippy png
 
 Note that you do not actually need to add the .webp extension to your file name, nor do you need to specify your desired extension if it is png- `cargo run flippy` would produce the same results as the command featured above.
 
-### Binary
+#### Binary
 
 To run this from the binary, place it in the same directory as any webp file you want to convert, and run the following in your favorite terminal:
 
@@ -36,6 +38,14 @@ webp_killer.exe flippy png
 ```
 
 Just like with cargo, you do not need to specify the extension if you want to convert your webp file into a png file. `webp_killer.exe flippy` works the exact same way as the command featured above.
+
+## To Detect and Destroy
+
+Alternatively, you can just run the binary file in command prompt without any arguments, and the program will automatically detect webp files downloaded to the directory and convert them immediately.
+
+```powershell
+webp_killer.exe
+```
 
 ## final
 

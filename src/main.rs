@@ -11,6 +11,6 @@ fn main() {
             process::exit(1);
         });
     img.kill();
+    } else{webp_killer::watcher().unwrap_or_else(|err| {println!("An error occured while watching: {}",err);});
     }
-
 }
