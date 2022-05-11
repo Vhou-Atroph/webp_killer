@@ -1,5 +1,5 @@
 extern crate notify;
-use crate::notify::Watcher;
+use notify::Watcher;
 use std::fs;
 
 pub struct WebpFile { //public struct WebpFile takes two inputs, both Strings.
@@ -25,26 +25,26 @@ impl WebpFile { //functions implemented by WebpFile - these can be used as metho
         fs::remove_file(format!("{}.webp",&self.name)).unwrap(); //removes the webp file from its terrible existence
     }
 }
-pub fn watcher() -> notify::Result<()> {
+pub fn watcher() -> notify::Result<()> { //creates a watcher to look for webp files to kill
     let mut watcher = notify::recommended_watcher(webp_killer)?;
     watcher.watch(std::path::Path::new("."), notify::RecursiveMode::Recursive)?;
-    loop{}
+    loop{} //infinite loop of Nothing- without this, the function would just return Ok(())- not what we want. We want to look for webp files until the user is done.
 }
 fn webp_killer(res: notify::Result<notify::Event>) {
     match res {
-        Ok(event) => {
+        Ok(event) => { //if our watcher gave us an event
             let p = &event.paths[0];
-            if p.extension().unwrap_or_else(|| {
+            if p.extension().unwrap_or_else(|| { 
                 std::ffi::OsStr::new("NONE")
-            }) == "webp" && event.kind == notify::EventKind::Create(notify::event::CreateKind::Any) {
-                std::thread::sleep(std::time::Duration::from_secs(1));
-                let evil = WebpFile {
+            }) == "webp" && event.kind == notify::EventKind::Create(notify::event::CreateKind::Any) { //if that event is the creation of a webp file. does not look at already existing webp files in directory
+                std::thread::sleep(std::time::Duration::from_secs(1)); //needs to sleep for a small amount first or else it'll cause an error
+                let evil = WebpFile { //create a new WebpFile instance
                     name: p.file_stem().unwrap().to_str().unwrap().to_string(),
                     output: "png".to_string(),
                 };
-                evil.kill();
+                evil.kill(); //kill the webp file
             }
         },
-        Err(e) => println!("Error: {:?}",e),
+        Err(e) => println!("Error: {:?}",e), //an error SHOULDN'T happen but if it does, this is here for that :)
     }
 }
