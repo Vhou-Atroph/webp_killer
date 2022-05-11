@@ -47,6 +47,10 @@ Alternatively, you can just run the binary file in command prompt without any ar
 webp_killer.exe
 ```
 
+Also see the video below (in 150% speed):  
+
+!["The user clicks on webp_killer.exe in a directory and drags a webp file into it. The webp is converted into a png."](auto-demo.gif)
+
 ## final
 
 Thanks for checking out my tiny little project, I hope your days in the future will be filled with less webp file struggles :)
