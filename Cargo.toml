@@ -1,8 +1,10 @@
 [package]
 name = "webp_killer"
 version = "1.2.1"
-edition = "2021"
 authors = ["Vhou-Atroph"]
+description = "A command line tool to simplify removing .webp files from your life."
+license = "GNU General Public License v3.0"
+edition = "2021"
 exclude = [
     "auto-demo.gif",
     "*.webp"
