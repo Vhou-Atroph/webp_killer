@@ -27,7 +27,7 @@ impl WebpFile {
         let img = image::open(format!("{}.webp",&self.name)).expect("Could not open the webp file!"); 
         img.save(format!("{}.{}",&self.name,&self.output)).expect("Could not save file to new file!"); 
         println!("Converted {}.webp to {}.{}!",&self.name,&self.name,&self.output); 
-        fs::remove_file(format!("{}.webp",&self.name)).unwrap(); 
+        fs::remove_file(format!("{}.webp",&self.name)).unwrap();
     }
 }
 
@@ -49,12 +49,11 @@ fn webp_killer(res: notify::Result<notify::Event>) {
             if p.extension().unwrap_or_else(|| { 
                 std::ffi::OsStr::new("NONE")
             }) == "webp" && event.kind == notify::EventKind::Create(notify::event::CreateKind::Any) {
-                std::thread::sleep(std::time::Duration::from_micros(5));
+                std::thread::sleep(std::time::Duration::from_secs(1));
                 let evil = WebpFile { 
                     name: p.file_stem().unwrap().to_str().unwrap().to_string(),
-                    output: "png".to_string(),
-                };
-                evil.kill();
+                    output: "png".to_string(),};
+                if fs::metadata(format!("{}.webp",evil.name)).is_ok() {evil.kill();}
             }
         },
         Err(e) => println!("Error: {:?}",e),

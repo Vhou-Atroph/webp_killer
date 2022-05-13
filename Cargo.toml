@@ -1,15 +1,12 @@
 [package]
 name = "webp_killer"
-version = "1.2.1"
+version = "1.2.2"
 authors = ["Vhou-Atroph"]
 description = "A command line tool to simplify removing .webp files from your life."
 license = "GPL-3.0-only"
 edition = "2021"
 repository = "https://github.com/Vhou-Atroph/webp_killer"
-exclude = [
-    "auto-demo.gif",
-    "*.webp"
-]
+exclude = ["auto-demo.gif","*.webp","Cargo.lock"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
