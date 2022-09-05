@@ -1,6 +1,6 @@
 [package]
 name = "webp_killer"
-version = "1.2.2"
+version = "1.2.3"
 authors = ["Vhou-Atroph"]
 description = "A command line tool to simplify removing .webp files from your life."
 license = "GPL-3.0-only"
